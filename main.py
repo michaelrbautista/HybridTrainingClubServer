@@ -21,7 +21,8 @@ if not OPENAI_API_KEY:
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 class Workout(BaseModel):
-    type: Literal["easy run", "speed workout", "long run", "upper body lift", "lower body lift"]
+    # type: Literal["easy run", "speed workout", "long run", "lower body lift", "upper body lift"]
+    type: Literal["easy endurance", "quality endurance", "long endurance", "lower body lift", "upper body lift"]
 
 class Day(BaseModel):
     day: Literal["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
@@ -34,9 +35,6 @@ class Week(BaseModel):
 
 @app.post("/week")
 def post_program():
-    return create_weekly_structure()
-
-def create_weekly_structure():
     print("Creating structure...")
     completion = client.beta.chat.completions.parse(
         model="gpt-4o-mini-2024-07-18",
@@ -49,10 +47,11 @@ def create_weekly_structure():
                 "role": "user",
                 "content": """
                 Create a weekly training schedule following these rules exactly:
-1. Include exactly one long run on Sunday.
-2. Do not include any runs Monday.
-3. Include exactly one speed workout on Thursday.
-4. Include exactly five easy runs. Do not schedule any runs on Monday.
+1. Include one long endurance session on Saturday.
+2. Include one quality endurance session three days before Saturday.
+3. Include 5 easy endurance sessions throughout the week. Include multiple sessions a day if needed.
+4. Include 1 lower body lift and 1 upper body lift.
+5. Do not schedule any workouts on Wednesday or Friday. Move any workouts on these days accordingly.
                 """
             }
         ],
