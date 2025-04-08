@@ -22,8 +22,7 @@ if not OPENAI_API_KEY:
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 class Workout(BaseModel):
-    # type: Literal["easy run", "speed workout", "long run", "lower body lift", "upper body lift"]
-    type: Literal["easy endurance", "quality endurance", "long endurance", "lower body lift", "upper body lift"]
+    type: Literal["easy run", "speed workout", "long run", "lower body lift", "upper body lift"]
 
 class Day(BaseModel):
     day: Literal["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
