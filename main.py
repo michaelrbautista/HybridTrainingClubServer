@@ -31,6 +31,10 @@ class Day(BaseModel):
 class Week(BaseModel):
     days: List[Day]
 
+@app.get("/")
+async def read_root():
+    return {"message": "API is running."}
+
 # uvicorn main:app --reload
 
 @app.post("/week")
