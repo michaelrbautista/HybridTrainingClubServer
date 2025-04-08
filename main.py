@@ -33,7 +33,11 @@ class Week(BaseModel):
 
 @app.get("/")
 async def read_root():
-    return {"message": "API is running."}
+    return {"message": "FastAPI app is running."}
+
+@app.head("/")
+async def head_root():
+    return {"message": "FastAPI app is running."}
 
 # uvicorn main:app --reload
 
