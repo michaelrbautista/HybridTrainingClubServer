@@ -1,10 +1,11 @@
 from typing import Literal
-from typing import List, Optional
+from typing import List
 from fastapi import FastAPI
 from pydantic import BaseModel
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+import uvicorn
 
 app = FastAPI()
 
@@ -66,3 +67,7 @@ def post_program():
         response_format=Week
     )
     return completion.choices[0].message.content
+
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 10000))  # Default to 10000 if not set
+    uvicorn.run(app, host="0.0.0.0", port=port)
